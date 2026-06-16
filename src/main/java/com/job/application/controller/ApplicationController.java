@@ -1,5 +1,7 @@
 package com.job.application.controller;
 
+import com.job.application.dto.ApplicationRequestDto;
+import com.job.application.dto.ApplicationResponseDto;
 import com.job.application.entity.ApplicationEntity;
 import com.job.application.service.ApplicationService;
 import jakarta.validation.Valid;
@@ -25,9 +27,13 @@ public class ApplicationController {
         return applicationService.getById(id);
     }
 
+//    @PostMapping
+//    public String addJob(@Valid @RequestBody ApplicationEntity applicationEntity){
+//        return applicationService.addJobs(applicationEntity);
+//    }
     @PostMapping
-    public String addJob(@Valid @RequestBody ApplicationEntity applicationEntity){
-        return applicationService.addJobs(applicationEntity);
+    public ApplicationResponseDto addJob(@RequestBody ApplicationRequestDto requestDto){
+        return  applicationService.addJobs(requestDto);
     }
 
     @PutMapping("/{id}")

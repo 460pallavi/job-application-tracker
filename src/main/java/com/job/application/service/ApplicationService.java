@@ -1,6 +1,8 @@
 package com.job.application.service;
 
 import com.job.application.ApplicationStatus;
+import com.job.application.dto.ApplicationRequestDto;
+import com.job.application.dto.ApplicationResponseDto;
 import com.job.application.entity.ApplicationEntity;
 import com.job.application.exception.ApplicationAlreadyExistException;
 import com.job.application.exception.ApplicationNotFoundException;
@@ -18,6 +20,8 @@ public class ApplicationService {
 
     @Autowired
     ApplicationRepository applicationRepository;
+
+
 
 //    GetMapping
     public List<ApplicationEntity> getAllApplication(){
@@ -39,28 +43,58 @@ public class ApplicationService {
  }
 
 //postmapping
- public String addJobs(ApplicationEntity applicationEntity){
+// public String addJobs(ApplicationEntity applicationEntity){
+//
+//        ApplicationEntity existing =
+//                applicationRepository.findByCandidateNameAndCompanyName(
+//                        applicationEntity.getCandidateName(),
+//                        applicationEntity.getCompanyName()
+//                );
+//
+//        if(existing != null) {
+//            throw new ApplicationAlreadyExistException("");
+//        }
+//
+//       if(applicationEntity.getStatus() != null){
+//           throw new InvalidApplicationStatusException("");
+//       }
+//        applicationEntity.setStatus(ApplicationStatus.Applied);
+//
+//        applicationRepository.save(applicationEntity);
+//
+//        return "Applied!";
+//
+//    }
 
-        ApplicationEntity existing =
-                applicationRepository.findByCandidateNameAndCompanyName(
-                        applicationEntity.getCandidateName(),
-                        applicationEntity.getCompanyName()
-                );
+    public ApplicationResponseDto addJobs(ApplicationRequestDto requestDto){
 
-        if(existing != null) {
+        ApplicationEntity existing = applicationRepository.findByCandidateNameAndCompanyName(
+                requestDto.getCandidateName(),
+                requestDto.getCompanyName()
+        );
+
+        if(existing != null){
             throw new ApplicationAlreadyExistException("");
         }
+        ApplicationEntity applicationEntity = new ApplicationEntity();
+        applicationEntity.setCandidateName(requestDto.getCandidateName());
+        applicationEntity.setCompanyName(requestDto.getCompanyName());
+        applicationEntity.setExpectedSalary(requestDto.getExpectedSalary());
 
-       if(applicationEntity.getStatus() != null){
-           throw new InvalidApplicationStatusException("");
-       }
         applicationEntity.setStatus(ApplicationStatus.Applied);
-
         applicationRepository.save(applicationEntity);
 
-        return "Applied!";
+        ApplicationResponseDto responseDto = new ApplicationResponseDto();
+            responseDto.setId(applicationEntity.getId());
+            responseDto.setCandidateName(applicationEntity.getCandidateName());
+            responseDto.setCompanyName(applicationEntity.getCompanyName());
+            responseDto.setExpectedSalary(applicationEntity.getExpectedSalary());
+            responseDto.setStatus(applicationEntity.getStatus());
 
+        return responseDto;
     }
+
+
 // PutMapping
 
     public String updateApplication(ApplicationEntity applicationEntity, Long id){
