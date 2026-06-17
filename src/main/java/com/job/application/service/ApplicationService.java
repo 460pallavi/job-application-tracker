@@ -29,7 +29,7 @@ public class ApplicationService {
     }
 
 //    GetMapping by Id
-    public ApplicationEntity getById(Long id){
+    public ApplicationResponseDto getById(Long id){
 //      if(applicationRepository.existsById(id)){
 //        return applicationRepository.getById(id);
 
@@ -39,7 +39,14 @@ public class ApplicationService {
  if(application.isEmpty()){
       throw new ApplicationNotFoundException("");
    }
- return application.get();
+
+ ApplicationEntity applicationEntity = application.get();
+ ApplicationResponseDto responseDto = new ApplicationResponseDto();
+ responseDto.setId(applicationEntity.getId());
+  responseDto.setCandidateName(applicationEntity.getCandidateName());
+  responseDto.setCompanyName(applicationEntity.getCompanyName());
+
+ return responseDto;
  }
 
 //postmapping
@@ -94,12 +101,23 @@ public class ApplicationService {
         return responseDto;
     }
 
+   public ApplicationEntity getApplicationEntityById(Long id){
+
+        Optional<ApplicationEntity> application =
+                applicationRepository.findById(id);
+
+        if(application.isEmpty()){
+            throw new ApplicationNotFoundException("");
+        }
+
+        return application.get();
+    }
 
 // PutMapping
 
     public String updateApplication(ApplicationEntity applicationEntity, Long id){
 
-        ApplicationEntity existingApplication = getById(id);
+        ApplicationEntity existingApplication = getApplicationEntityById(id);
 
     ApplicationStatus currentStatus = existingApplication.getStatus();
     ApplicationStatus newStatus = applicationEntity.getStatus();

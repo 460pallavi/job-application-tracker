@@ -1,6 +1,5 @@
 package com.job.application.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job.application.ApplicationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

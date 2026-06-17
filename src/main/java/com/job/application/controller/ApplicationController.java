@@ -23,9 +23,11 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}")
-    public ApplicationEntity getByIs(@PathVariable Long id){
+    public ApplicationResponseDto getByIs(@PathVariable Long id){
         return applicationService.getById(id);
     }
+
+
 
 //    @PostMapping
 //    public String addJob(@Valid @RequestBody ApplicationEntity applicationEntity){
