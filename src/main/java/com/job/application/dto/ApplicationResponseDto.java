@@ -7,7 +7,7 @@ public class ApplicationResponseDto {
     private Long id;
     private String candidateName;
     private String companyName;
-    private String expectedSalary;
+    private Long expectedSalary;
     private ApplicationStatus status;
 
     public Long getId() {
@@ -34,11 +34,11 @@ public class ApplicationResponseDto {
         this.companyName = companyName;
     }
 
-    public String getExpectedSalary() {
+    public Long getExpectedSalary() {
         return expectedSalary;
     }
 
-    public void setExpectedSalary(String expectedSalary) {
+    public void setExpectedSalary(Long expectedSalary) {
         this.expectedSalary = expectedSalary;
     }
 

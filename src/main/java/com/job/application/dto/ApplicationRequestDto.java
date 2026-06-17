@@ -1,10 +1,16 @@
 package com.job.application.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
 public class ApplicationRequestDto {
 
+    @NotBlank
     private String candidateName;
+    @NotBlank
     private String companyName;
-    private String expectedSalary;
+    @Positive
+    private Long expectedSalary;
 
     public String getCandidateName() {
         return candidateName;
@@ -22,11 +28,11 @@ public class ApplicationRequestDto {
         this.companyName = companyName;
     }
 
-    public String getExpectedSalary() {
+    public Long getExpectedSalary() {
         return expectedSalary;
     }
 
-    public void setExpectedSalary(String expectedSalary) {
+    public void setExpectedSalary(Long expectedSalary) {
         this.expectedSalary = expectedSalary;
     }
 }

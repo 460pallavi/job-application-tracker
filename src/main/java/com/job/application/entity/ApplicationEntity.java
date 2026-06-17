@@ -16,13 +16,13 @@ public class ApplicationEntity {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 //private String status;
-    private String expectedSalary;
+    private Long expectedSalary;
 
 
     public ApplicationEntity() {
     }
 
-    public ApplicationEntity(Long id, String candidateName, String companyName, ApplicationStatus status, String expectedSalary) {
+    public ApplicationEntity(Long id, String candidateName, String companyName, ApplicationStatus status, Long expectedSalary) {
         this.id = id;
         this.candidateName = candidateName;
         this.companyName = companyName;
@@ -69,11 +69,11 @@ public class ApplicationEntity {
 //        this.status = status;
 //    }
 
-    public String getExpectedSalary() {
+    public Long getExpectedSalary() {
         return expectedSalary;
     }
 
-    public void setExpectedSalary(String expectedSalary) {
+    public void setExpectedSalary(Long expectedSalary) {
         this.expectedSalary = expectedSalary;
     }
 }

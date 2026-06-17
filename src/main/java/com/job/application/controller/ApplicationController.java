@@ -34,7 +34,7 @@ public class ApplicationController {
 //        return applicationService.addJobs(applicationEntity);
 //    }
     @PostMapping
-    public ApplicationResponseDto addJob(@RequestBody ApplicationRequestDto requestDto){
+    public ApplicationResponseDto addJob(@Valid @RequestBody ApplicationRequestDto requestDto){
         return  applicationService.addJobs(requestDto);
     }
 
