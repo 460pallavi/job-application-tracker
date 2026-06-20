@@ -41,12 +41,12 @@ public class ApplicationService {
    }
 
  ApplicationEntity applicationEntity = application.get();
- ApplicationResponseDto responseDto = new ApplicationResponseDto();
- responseDto.setId(applicationEntity.getId());
-  responseDto.setCandidateName(applicationEntity.getCandidateName());
-  responseDto.setCompanyName(applicationEntity.getCompanyName());
+// ApplicationResponseDto responseDto = new ApplicationResponseDto();
+// responseDto.setId(applicationEntity.getId());
+//  responseDto.setCandidateName(applicationEntity.getCandidateName());
+//  responseDto.setCompanyName(applicationEntity.getCompanyName());
 
- return responseDto;
+ return mapToResponseDto(applicationEntity);
  }
 
 //postmapping
@@ -73,14 +73,14 @@ public class ApplicationService {
 //
 //    }
 
-    public ApplicationResponseDto addJobs(ApplicationRequestDto requestDto){
+    public ApplicationResponseDto addJobs(ApplicationRequestDto requestDto) {
 
         ApplicationEntity existing = applicationRepository.findByCandidateNameAndCompanyName(
                 requestDto.getCandidateName(),
                 requestDto.getCompanyName()
         );
 
-        if(existing != null){
+        if (existing != null) {
             throw new ApplicationAlreadyExistException("");
         }
         ApplicationEntity applicationEntity = new ApplicationEntity();
@@ -91,14 +91,15 @@ public class ApplicationService {
         applicationEntity.setStatus(ApplicationStatus.Applied);
         applicationRepository.save(applicationEntity);
 
-        ApplicationResponseDto responseDto = new ApplicationResponseDto();
-            responseDto.setId(applicationEntity.getId());
-            responseDto.setCandidateName(applicationEntity.getCandidateName());
-            responseDto.setCompanyName(applicationEntity.getCompanyName());
-            responseDto.setExpectedSalary(applicationEntity.getExpectedSalary());
-            responseDto.setStatus(applicationEntity.getStatus());
-
-        return responseDto;
+//        ApplicationResponseDto responseDto = new ApplicationResponseDto();
+//            responseDto.setId(applicationEntity.getId());
+//            responseDto.setCandidateName(applicationEntity.getCandidateName());
+//            responseDto.setCompanyName(applicationEntity.getCompanyName());
+//            responseDto.setExpectedSalary(applicationEntity.getExpectedSalary());
+//            responseDto.setStatus(applicationEntity.getStatus());
+//
+//        return responseDto;
+        return mapToResponseDto(applicationEntity);
     }
 
    public ApplicationEntity getApplicationEntityById(Long id){
@@ -155,6 +156,18 @@ public class ApplicationService {
         applicationRepository.save(existingApplication);
 
         return "Application update";
+    }
+
+    private ApplicationResponseDto mapToResponseDto(ApplicationEntity applicationEntity){
+
+        ApplicationResponseDto responseDto = new ApplicationResponseDto();
+        responseDto.setId(applicationEntity.getId());
+        responseDto.setCandidateName(applicationEntity.getCandidateName());
+        responseDto.setCompanyName(applicationEntity.getCompanyName());
+        responseDto.setExpectedSalary(applicationEntity.getExpectedSalary());
+        responseDto.setStatus(applicationEntity.getStatus());
+
+        return responseDto;
     }
 
 }
