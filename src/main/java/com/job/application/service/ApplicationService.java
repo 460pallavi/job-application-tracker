@@ -6,12 +6,12 @@ import com.job.application.dto.ApplicationResponseDto;
 import com.job.application.entity.ApplicationEntity;
 import com.job.application.exception.ApplicationAlreadyExistException;
 import com.job.application.exception.ApplicationNotFoundException;
-import com.job.application.exception.InvalidApplicationStatusException;
 import com.job.application.exception.InvalidStatusTransitionsException;
 import com.job.application.repository.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,7 +115,6 @@ public class ApplicationService {
     }
 
 // PutMapping
-
     public String updateApplication(ApplicationEntity applicationEntity, Long id){
 
         ApplicationEntity existingApplication = getApplicationEntityById(id);
@@ -170,4 +169,19 @@ public class ApplicationService {
         return responseDto;
     }
 
-}
+    public List<ApplicationResponseDto> getByCompanyName(String companyName){
+ List<ApplicationEntity> applicationEntities = applicationRepository.findByCompanyName(companyName);
+ List<ApplicationResponseDto> responseDtos = new ArrayList<>();
+  for(ApplicationEntity application : applicationEntities) {
+      ApplicationResponseDto responseDto = mapToResponseDto(application);
+
+      responseDtos.add(responseDto);
+  }
+   return responseDtos;
+
+  }
+
+    }
+
+
+
