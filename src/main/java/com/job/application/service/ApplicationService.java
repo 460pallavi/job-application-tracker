@@ -169,17 +169,46 @@ public class ApplicationService {
         return responseDto;
     }
 
-    public List<ApplicationResponseDto> getByCompanyName(String companyName){
+    public List<ApplicationResponseDto> getByCompanyName(String companyName) {
+
  List<ApplicationEntity> applicationEntities = applicationRepository.findByCompanyName(companyName);
  List<ApplicationResponseDto> responseDtos = new ArrayList<>();
   for(ApplicationEntity application : applicationEntities) {
       ApplicationResponseDto responseDto = mapToResponseDto(application);
-
       responseDtos.add(responseDto);
   }
    return responseDtos;
 
   }
+
+  public List<ApplicationResponseDto> getByCandidateName(String candidateName) {
+
+     List<ApplicationEntity> applicationEntities = applicationRepository.findByCandidateName(candidateName);
+     List<ApplicationResponseDto> applicationResponseDtos = new ArrayList<>();
+
+     for(ApplicationEntity application : applicationEntities){
+          ApplicationResponseDto responseDto = mapToResponseDto(application);
+          applicationResponseDtos.add(responseDto);
+     }
+
+        return applicationResponseDtos;
+  }
+
+  public List<ApplicationResponseDto> getByStatus(ApplicationStatus status){
+
+        List<ApplicationEntity> applicationEntities = applicationRepository.findByStatus(status);
+        List<ApplicationResponseDto> applicationResponseDtos = new ArrayList<>();
+
+        for(ApplicationEntity application : applicationEntities){
+            ApplicationResponseDto responseDto = mapToResponseDto(application);
+            applicationResponseDtos.add(responseDto);
+        }
+
+        return applicationResponseDtos;
+
+
+  }
+
 
     }
 
